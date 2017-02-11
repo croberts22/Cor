@@ -66,6 +66,7 @@ public final class Cor {
     }
     
     public func continuePayloadExecution() {
+        paused = false
         processNext()
     }
     
@@ -92,8 +93,7 @@ public final class Cor {
                         processNext()
                         
                     } else {
-                        show(corView: view, withPayload: next)
-                        processNext()
+                        show(corView: view, withPayload: next, animationSettings: classData.settings)
                     }
                     
                 } else if let nibData = nibRegistry[next.identifier] {
@@ -104,8 +104,7 @@ public final class Cor {
                             processNext()
                             
                         } else {
-                            show(corView: view, withPayload: next)
-                            processNext()
+                            show(corView: view, withPayload: next, animationSettings: nibData.settings)
                         }
                         
                     } else {
@@ -119,18 +118,21 @@ public final class Cor {
         }
     }
     
-    private func show(corView view: CorView, withPayload payload: Payload) {
+    private func show(corView view: CorView, withPayload payload: Payload, animationSettings settings: CorViewAnimationSettings) {
         
         delegate?.cor(willShowCorView: view, withPayload: payload)
         
         // TODO: Show the CorView with animation settings
+        // Will need to move the below calls into the animation completion most likely
         
         delegate?.cor(didShowCorView: view, withPayload: payload)
         
         delegate?.cor(willDismissCorView: view, withPayload: payload)
         
         // TODO: Dismiss the CorView with animation settings
+        // Will need to move the below calls into the animation completion most likely
         
         delegate?.cor(didDismissCorView: view, withPayload: payload)
+        processNext()
     }
 }
