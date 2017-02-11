@@ -145,7 +145,7 @@ public final class Cor {
     private func show(corView view: CorView, withCorPayload payload: CorPayload, animationSettings settings: CorViewAnimationSettings) {
         
         if let view = view as? Configurable {
-            view.configure(withPayload: payload)
+            view.configure(withCorPayload: payload)
         }
         
         delegate?.cor(willShowCorView: view, withCorPayload: payload)

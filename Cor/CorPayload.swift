@@ -29,7 +29,7 @@ public protocol Displayable {
 // A protocol your views should conform to so that they may use your payloads
 public protocol Configurable {
     
-    func configure(withPayload payload: CorPayload)
+    func configure(withCorPayload payload: CorPayload)
 }
 
 public final class CorEasyPayload: CorPayload {
