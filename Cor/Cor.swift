@@ -18,6 +18,9 @@ public protocol CorDelegate: class {
     
     func cor(willDismissCorView view: CorView, withPayload payload: Payload)
     func cor(didDismissCorView view: CorView, withPayload payload: Payload)
+    
+    func cor(willProcessNextPayload payload: Payload)
+    func cor(didDiscardPayload payload: Payload)
 }
 
 typealias CorClassRegistryData = (type: CorView.Type, settings: CorViewAnimationSettings)
@@ -80,10 +83,17 @@ public final class Cor {
         if paused == false {
             
             if queue.isEmpty == false {
-                queue.removeFirst()
+                if let delegate = delegate {
+                    delegate.cor(didDiscardPayload: queue.removeFirst())
+                
+                } else {
+                    queue.removeFirst()
+                }
             }
             
             if let next = queue.first {
+                
+                delegate?.cor(willProcessNextPayload: next)
                 
                 if let classData = classRegistry[next.identifier] {
                     
