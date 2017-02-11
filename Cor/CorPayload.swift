@@ -11,9 +11,9 @@ import UIKit
 
 
 /// A protocol that defines the content of a message.
-public protocol Payload {
+public protocol CorPayload {
     
-    var identifier: String { get }
+    var corIdentifier: String { get }
 }
 
 
@@ -29,18 +29,18 @@ public protocol Displayable {
 // A protocol your views should conform to so that they may use your payloads
 public protocol Configurable {
     
-    func configure(withPayload payload: Payload)
+    func configure(withPayload payload: CorPayload)
 }
 
-public final class CorEasyPayload: Payload {
+public final class CorEasyPayload: CorPayload {
     
-    public let identifier: String
+    public let corIdentifier: String
     public let title: String
     public let description: String?
     public let image: UIImage?
     
-    init(identifier: String, title: String, description: String?, image: UIImage?) {
-        self.identifier = identifier
+    init(corIdentifier: String, title: String, description: String?, image: UIImage?) {
+        self.corIdentifier = corIdentifier
         self.title = title
         self.description = description
         self.image = image

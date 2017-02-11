@@ -11,16 +11,16 @@ import UIKit
 
 public protocol CorDelegate: class {
     
-    func cor(shouldDiscardCorView view: CorView, withPayload payload: Payload) -> Bool
+    func cor(shouldDiscardCorView view: CorView, withPayload payload: CorPayload) -> Bool
     
-    func cor(willShowCorView view: CorView, withPayload payload: Payload)
-    func cor(didShowCorView view: CorView, withPayload payload: Payload)
+    func cor(willShowCorView view: CorView, withCorPayload payload: CorPayload)
+    func cor(didShowCorView view: CorView, withCorPayload payload: CorPayload)
     
-    func cor(willDismissCorView view: CorView, withPayload payload: Payload)
-    func cor(didDismissCorView view: CorView, withPayload payload: Payload)
+    func cor(willDismissCorView view: CorView, withCorPayload payload: CorPayload)
+    func cor(didDismissCorView view: CorView, withCorPayload payload: CorPayload)
     
-    func cor(willProcessNextPayload payload: Payload)
-    func cor(didDiscardPayload payload: Payload)
+    func cor(willProcessNextCorPayload payload: CorPayload)
+    func cor(didDiscardCorPayload payload: CorPayload)
 }
 
 typealias CorClassRegistryData = (type: CorView.Type, settings: CorViewAnimationSettings)
@@ -34,7 +34,7 @@ public final class Cor {
     
     private lazy var paused: Bool = false
     
-    private var queue: [Payload] = [Payload]()
+    private var queue: [CorPayload] = [CorPayload]()
     
     private lazy var classRegistry: [String : CorClassRegistryData] = [String : CorClassRegistryData]()
     private lazy var nibRegistry: [String : CorNibRegistryData] = [String : CorNibRegistryData]()
@@ -48,11 +48,11 @@ public final class Cor {
     }
     
     // MARK: - Public Interface
-    public func register(corViewClass classType: CorView.Type, forIdentifier identifier: String, animationSettings settings: CorViewAnimationSettings = CorViewAnimationSettings.defaultSettings) {
+    public func register(corViewClass classType: CorView.Type, forCorIdentifier identifier: String, animationSettings settings: CorViewAnimationSettings = CorViewAnimationSettings.defaultSettings) {
         classRegistry[identifier] = (classType, settings)
     }
     
-    public func register(corViewNib nib: UINib, forIdentifier identifier: String, animationSettings settings: CorViewAnimationSettings = CorViewAnimationSettings.defaultSettings) {
+    public func register(corViewNib nib: UINib, forCorIdentifier identifier: String, animationSettings settings: CorViewAnimationSettings = CorViewAnimationSettings.defaultSettings) {
         nibRegistry[identifier] = (nib, settings)
     }
     
@@ -73,7 +73,7 @@ public final class Cor {
         processNext()
     }
     
-    public func add(item: Payload) {
+    public func add(item: CorPayload) {
         queue.append(item)
     }
     
@@ -84,7 +84,7 @@ public final class Cor {
             
             if queue.isEmpty == false {
                 if let delegate = delegate {
-                    delegate.cor(didDiscardPayload: queue.removeFirst())
+                    delegate.cor(didDiscardCorPayload: queue.removeFirst())
                 
                 } else {
                     queue.removeFirst()
@@ -93,9 +93,9 @@ public final class Cor {
             
             if let next = queue.first {
                 
-                delegate?.cor(willProcessNextPayload: next)
+                delegate?.cor(willProcessNextCorPayload: next)
                 
-                if let classData = classRegistry[next.identifier] {
+                if let classData = classRegistry[next.corIdentifier] {
                     
                     let view: CorView = classData.type.init()
                     
@@ -103,10 +103,10 @@ public final class Cor {
                         processNext()
                         
                     } else {
-                        show(corView: view, withPayload: next, animationSettings: classData.settings)
+                        show(corView: view, withCorPayload: next, animationSettings: classData.settings)
                     }
                     
-                } else if let nibData = nibRegistry[next.identifier] {
+                } else if let nibData = nibRegistry[next.corIdentifier] {
                     
                     if let view: CorView = nibData.nib.instantiate(withOwner: nil, options: nil).first as? CorView {
                         
@@ -114,7 +114,7 @@ public final class Cor {
                             processNext()
                             
                         } else {
-                            show(corView: view, withPayload: next, animationSettings: nibData.settings)
+                            show(corView: view, withCorPayload: next, animationSettings: nibData.settings)
                         }
                         
                     } else {
@@ -128,25 +128,25 @@ public final class Cor {
         }
     }
     
-    private func show(corView view: CorView, withPayload payload: Payload, animationSettings settings: CorViewAnimationSettings) {
+    private func show(corView view: CorView, withCorPayload payload: CorPayload, animationSettings settings: CorViewAnimationSettings) {
         
         if let view = view as? Configurable {
             view.configure(withPayload: payload)
         }
         
-        delegate?.cor(willShowCorView: view, withPayload: payload)
+        delegate?.cor(willShowCorView: view, withCorPayload: payload)
         
         // TODO: Show the CorView with animation settings
         // Will need to move the below calls into the animation completion most likely
         
-        delegate?.cor(didShowCorView: view, withPayload: payload)
+        delegate?.cor(didShowCorView: view, withCorPayload: payload)
         
-        delegate?.cor(willDismissCorView: view, withPayload: payload)
+        delegate?.cor(willDismissCorView: view, withCorPayload: payload)
         
         // TODO: Dismiss the CorView with animation settings
         // Will need to move the below calls into the animation completion most likely
         
-        delegate?.cor(didDismissCorView: view, withPayload: payload)
+        delegate?.cor(didDismissCorView: view, withCorPayload: payload)
         processNext()
     }
 }

@@ -32,7 +32,7 @@ public final class CorEasyView: CorView, Configurable {
     
     
     
-    public func configure(withPayload payload: Payload) {
+    public func configure(withPayload payload: CorPayload) {
         if let payload = payload as? CorEasyPayload {
             
         }

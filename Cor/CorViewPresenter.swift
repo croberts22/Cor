@@ -18,5 +18,5 @@ import Foundation
 
 public protocol CorViewPresenter {
     
-    func should(presentCorView view: CorView, withPayload payload: Payload, corDelegate delegate: CorDelegate?)
+    func should(presentCorView view: CorView, withPayload payload: CorPayload, corDelegate delegate: CorDelegate?)
 }
