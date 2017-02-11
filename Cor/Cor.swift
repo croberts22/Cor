@@ -120,6 +120,10 @@ public final class Cor {
     
     private func show(corView view: CorView, withPayload payload: Payload, animationSettings settings: CorViewAnimationSettings) {
         
+        if let view = view as? Configurable {
+            view.configure(withPayload: payload)
+        }
+        
         delegate?.cor(willShowCorView: view, withPayload: payload)
         
         // TODO: Show the CorView with animation settings

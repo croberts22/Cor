@@ -28,7 +28,13 @@ public class CorView: UIView {
 
 
 // Cor library default display class
-public final class CorEasyView: CorView {
+public final class CorEasyView: CorView, Configurable {
     
     
+    
+    public func configure(withPayload payload: Payload) {
+        if let payload = payload as? CorEasyPayload {
+            
+        }
+    }
 }
