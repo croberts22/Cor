@@ -32,7 +32,7 @@ typealias CorNibRegistryData = (nib: UINib, settings: CorViewAnimationSettings)
 /// not provided.
 public final class Cor {
     
-    private lazy var paused: Bool = false
+    private lazy var processing: Bool = false
     
     private var queue: [CorPayload] = [CorPayload]()
     
@@ -40,6 +40,13 @@ public final class Cor {
     private lazy var nibRegistry: [String : CorNibRegistryData] = [String : CorNibRegistryData]()
     private lazy var presenterMap: NSMapTable<NSString, AnyObject> = NSMapTable<NSString, AnyObject>(keyOptions: [.copyIn], valueOptions: [.weakMemory], capacity: 0)
     
+    public var paused: Bool = false {
+        didSet {
+            if paused == false {
+                processNext()
+            }
+        }
+    }
     
     public weak var delegate: CorDelegate?
     
@@ -63,18 +70,12 @@ public final class Cor {
         }
     }
     
-    // Will continue animating current view if already started
-    public func pausePayloadExecution() {
-        paused = true
-    }
-    
-    public func continuePayloadExecution() {
-        paused = false
-        processNext()
-    }
-    
     public func add(item: CorPayload) {
         queue.append(item)
+        
+        if paused == false && processing == false {
+            processNext()
+        }
     }
     
     // MARK: - Private
@@ -82,16 +83,9 @@ public final class Cor {
         
         if paused == false {
             
-            if queue.isEmpty == false {
-                if let delegate = delegate {
-                    delegate.cor(didDiscardCorPayload: queue.removeFirst())
-                
-                } else {
-                    queue.removeFirst()
-                }
-            }
-            
             if let next = queue.first {
+                
+                processing = true
                 
                 delegate?.cor(willProcessNextCorPayload: next)
                 
@@ -100,6 +94,7 @@ public final class Cor {
                     let view: CorView = classData.type.init()
                     
                     if let delegate = delegate, delegate.cor(shouldDiscardCorView: view, withPayload: next) {
+                        discard()
                         processNext()
                         
                     } else {
@@ -111,6 +106,7 @@ public final class Cor {
                     if let view: CorView = nibData.nib.instantiate(withOwner: nil, options: nil).first as? CorView {
                         
                         if let delegate = delegate, delegate.cor(shouldDiscardCorView: view, withPayload: next) {
+                            discard()
                             processNext()
                             
                         } else {
@@ -124,6 +120,24 @@ public final class Cor {
                 } else {
                     assertionFailure("Cor: Failure To Register Class Or Nib For Identifier")
                 }
+            
+            } else {
+                processing = false
+            }
+            
+        } else {
+            processing = false
+        }
+    }
+    
+    private func discard() {
+        
+        if queue.isEmpty == false {
+            if let delegate = delegate {
+                delegate.cor(didDiscardCorPayload: queue.removeFirst())
+                
+            } else {
+                queue.removeFirst()
             }
         }
     }
@@ -147,6 +161,7 @@ public final class Cor {
         // Will need to move the below calls into the animation completion most likely
         
         delegate?.cor(didDismissCorView: view, withCorPayload: payload)
+        discard()
         processNext()
     }
 }
