@@ -7,20 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 
 /// A protocol that defines the content of a message.
-protocol Payload {
+public protocol Payload {
     
-    var title: String { get }
-    var description: String? { get }
-    var image: UIImage? { get }
-    
+    var identifier: String { get }
 }
 
 
 /// A protocol that defines a set of view behaviors.
-protocol Displayable {
+public protocol Displayable {
     
     func prepare()
     func display()
@@ -28,18 +26,23 @@ protocol Displayable {
     
 }
 
+// A protocol your views should conform to so that they may use your payloads
+public protocol Configurable {
+    
+    func configure(withPayload payload: Payload)
+}
 
-/// A struct that contains the content of a message.
-struct Item: Payload {
+public final class CorEasyPayload: Payload {
     
-    let title: String
-    var description: String?
-    var image: UIImage?
+    public let identifier: String
+    public let title: String
+    public let description: String?
+    public let image: UIImage?
     
-    init(title: String, description: String?, image: UIImage?) {
+    init(identifier: String, title: String, description: String?, image: UIImage?) {
+        self.identifier = identifier
         self.title = title
         self.description = description
         self.image = image
     }
-    
 }
