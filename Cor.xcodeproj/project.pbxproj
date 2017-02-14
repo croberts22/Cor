@@ -10,9 +10,16 @@
 		2CBB47BB1E4D52CF00C08A7D /* Cor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBB47B11E4D52CF00C08A7D /* Cor.framework */; };
 		2CBB47C01E4D52CF00C08A7D /* CorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47BF1E4D52CF00C08A7D /* CorTests.swift */; };
 		2CBB47C21E4D52CF00C08A7D /* Cor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBB47B41E4D52CF00C08A7D /* Cor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2CBB47CC1E4D52FD00C08A7D /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CB1E4D52FD00C08A7D /* PopupView.swift */; };
-		2CBB47CE1E4D532F00C08A7D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CD1E4D532F00C08A7D /* Payload.swift */; };
+		2CBB47CC1E4D52FD00C08A7D /* CorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CB1E4D52FD00C08A7D /* CorView.swift */; };
+		2CBB47CE1E4D532F00C08A7D /* CorPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CD1E4D532F00C08A7D /* CorPayload.swift */; };
 		2CBB47D01E4D590D00C08A7D /* Cor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CF1E4D590D00C08A7D /* Cor.swift */; };
+		CF3CB5411E4E974D0002F58F /* CorViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3CB5401E4E974D0002F58F /* CorViewPresenter.swift */; };
+		CF3CB5421E4E974D0002F58F /* CorViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3CB5401E4E974D0002F58F /* CorViewPresenter.swift */; };
+		CF3CB5441E4E986E0002F58F /* CorViewAnimationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3CB5431E4E986E0002F58F /* CorViewAnimationSettings.swift */; };
+		CF3CB5451E4E986E0002F58F /* CorViewAnimationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3CB5431E4E986E0002F58F /* CorViewAnimationSettings.swift */; };
+		CF3CB5461E4EA1050002F58F /* CorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CB1E4D52FD00C08A7D /* CorView.swift */; };
+		CF3CB5471E4EA10C0002F58F /* Cor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CF1E4D590D00C08A7D /* Cor.swift */; };
+		CF3CB5481E4EA1190002F58F /* CorPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB47CD1E4D532F00C08A7D /* CorPayload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,9 +39,11 @@
 		2CBB47BA1E4D52CF00C08A7D /* CorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBB47BF1E4D52CF00C08A7D /* CorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorTests.swift; sourceTree = "<group>"; };
 		2CBB47C11E4D52CF00C08A7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2CBB47CB1E4D52FD00C08A7D /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
-		2CBB47CD1E4D532F00C08A7D /* Payload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
+		2CBB47CB1E4D52FD00C08A7D /* CorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorView.swift; sourceTree = "<group>"; };
+		2CBB47CD1E4D532F00C08A7D /* CorPayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorPayload.swift; sourceTree = "<group>"; };
 		2CBB47CF1E4D590D00C08A7D /* Cor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cor.swift; sourceTree = "<group>"; };
+		CF3CB5401E4E974D0002F58F /* CorViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorViewPresenter.swift; sourceTree = "<group>"; };
+		CF3CB5431E4E986E0002F58F /* CorViewAnimationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorViewAnimationSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +88,11 @@
 			children = (
 				2CBB47B41E4D52CF00C08A7D /* Cor.h */,
 				2CBB47B51E4D52CF00C08A7D /* Info.plist */,
-				2CBB47CB1E4D52FD00C08A7D /* PopupView.swift */,
-				2CBB47CD1E4D532F00C08A7D /* Payload.swift */,
+				2CBB47CB1E4D52FD00C08A7D /* CorView.swift */,
+				2CBB47CD1E4D532F00C08A7D /* CorPayload.swift */,
 				2CBB47CF1E4D590D00C08A7D /* Cor.swift */,
+				CF3CB5401E4E974D0002F58F /* CorViewPresenter.swift */,
+				CF3CB5431E4E986E0002F58F /* CorViewAnimationSettings.swift */,
 			);
 			path = Cor;
 			sourceTree = "<group>";
@@ -208,9 +219,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CBB47CE1E4D532F00C08A7D /* Payload.swift in Sources */,
+				CF3CB5411E4E974D0002F58F /* CorViewPresenter.swift in Sources */,
+				2CBB47CE1E4D532F00C08A7D /* CorPayload.swift in Sources */,
 				2CBB47D01E4D590D00C08A7D /* Cor.swift in Sources */,
-				2CBB47CC1E4D52FD00C08A7D /* PopupView.swift in Sources */,
+				2CBB47CC1E4D52FD00C08A7D /* CorView.swift in Sources */,
+				CF3CB5441E4E986E0002F58F /* CorViewAnimationSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +231,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF3CB5481E4EA1190002F58F /* CorPayload.swift in Sources */,
+				CF3CB5451E4E986E0002F58F /* CorViewAnimationSettings.swift in Sources */,
+				CF3CB5471E4EA10C0002F58F /* Cor.swift in Sources */,
+				CF3CB5421E4E974D0002F58F /* CorViewPresenter.swift in Sources */,
 				2CBB47C01E4D52CF00C08A7D /* CorTests.swift in Sources */,
+				CF3CB5461E4EA1050002F58F /* CorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +436,7 @@
 				2CBB47C71E4D52CF00C08A7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CBB47C81E4D52CF00C08A7D /* Build configuration list for PBXNativeTarget "CorTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +445,7 @@
 				2CBB47CA1E4D52CF00C08A7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
